@@ -17,7 +17,7 @@ import javax.swing.JOptionPane;
  * @author hp
  */
 public class Card_add extends javax.swing.JFrame {
-
+        static String c="";
     /**
      * Creates new form Card_add
      */
@@ -84,7 +84,7 @@ public class Card_add extends javax.swing.JFrame {
 
         try
         {
-            String c=t1.getText();
+            c=t1.getText();
             
              Class.forName("com.mysql.jdbc.Driver");
             Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/barcode","root","");

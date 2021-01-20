@@ -21,6 +21,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class Student_report extends javax.swing.JFrame {
     String card=Fine_add.cardno;
+    //String card=Card_add.c;
     /**
      * Creates new form Student_report
      */
@@ -34,16 +35,16 @@ public class Student_report extends javax.swing.JFrame {
            
            String []col={"AMOUNT","DATE","FINE_TYPE","STATUS"};
            dt.setColumnIdentifiers(col);
-           tb1.setModel(dt);
+           tb1.setModel(dt);                                 //tb1 is the name of the table
            
            String q1="select * from transaction where card_no='"+card+"'";
            Statement stmt1=con.createStatement();
            ResultSet rs1=stmt1.executeQuery(q1);
            
-           int i;
-           for(i=1;i<=5;i++)
-           {
-               while(rs1.next())
+           int i=0;
+           
+                                                          //for(i=1;i<=5;i++)
+               while(rs1.next())                           
                {
                    Vector v=new Vector();
                    v.add(rs1.getString("AMOUNT"));
@@ -51,8 +52,11 @@ public class Student_report extends javax.swing.JFrame {
                    v.add(rs1.getString("FINE_TYPE"));
                    v.add(rs1.getString("STATUS"));
                    dt.addRow(v);
+                   i++;
+                   if(i == 4)
+                       break;
                }
-           }
+           
            
            String q2="select * from fine where card_no='"+card+"' and status='not paid'";
            Statement stmt2=con.createStatement();
@@ -132,16 +136,20 @@ public class Student_report extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
-                .addGap(42, 42, 42)
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel2))
-                .addGap(36, 36, 36)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton1)
-                    .addComponent(t2, javax.swing.GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE)
-                    .addComponent(t3))
-                .addGap(18, 18, 18)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel3))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(74, 74, 74)
+                        .addComponent(jButton1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(t3, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(t2, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(74, 74, 74)
                 .addComponent(t1)
                 .addGap(34, 34, 34))
         );
@@ -158,9 +166,9 @@ public class Student_report extends javax.swing.JFrame {
                     .addComponent(t2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(t1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel3)
-                    .addComponent(t3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(t3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
                 .addComponent(jButton1)
                 .addContainerGap())
@@ -177,13 +185,13 @@ public class Student_report extends javax.swing.JFrame {
             java.util.Date d=new java.util.Date();
             String dt=sdf.format(d);
             
-            card=Card_add.card_no;
+            card=Card_add.c;
             String a=t2.getText();
             int amt=Integer.parseInt(a);
             String finetype=t3.getText();
              Class.forName("com.mysql.jdbc.Driver");
              Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/barcode","root","");
-             String q1="select * from issue wher card_no='"+card+"'";
+             String q1="select * from issue where card_no='"+card+"'";
              Statement stmt1=con.createStatement();
              ResultSet rs1=stmt1.executeQuery(q1);
              

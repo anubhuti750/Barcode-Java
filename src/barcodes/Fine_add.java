@@ -145,11 +145,12 @@ public class Fine_add extends javax.swing.JFrame {
             String fine=c2.getSelectedItem().toString();
             String amount=t1.getText();
             String last_date=t2.getText();
+            String notPaid = "not paid";
             
              Class.forName("com.mysql.jdbc.Driver");
              Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/barcode","root","");
             
-             String q="insert into fine values('"+rno+"','"+fine+"','"+amount+"','"+last_date+"')";
+             String q="insert into fine values('"+rno+"','"+fine+"','"+amount+"','"+last_date+"', '"+notPaid+"')";
              Statement stmt=con.createStatement();
              int rs=stmt.executeUpdate(q);
              
